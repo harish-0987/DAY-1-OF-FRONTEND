@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 1 of Frontend - HTML Theory & Advantages</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #111827;
+            --bg-card: rgba(17, 24, 39, 0.7);
+            --bg-card-hover: rgba(31, 41, 55, 0.85);
+            --accent-orange: #f97316;
+            --accent-blue: #38bdf8;
+            --accent-purple: #a855f7;
+            --accent-emerald: #10b981;
+            --accent-gradient: linear-gradient(135deg, #f97316 0%, #fb923c 50%, #e11d48 100%);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(249, 115, 22, 0.3);
+            --glass-blur: blur(16px);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(249, 115, 22, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 85% 65%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 90%, rgba(168, 85, 247, 0.08) 0%, transparent 45%);
+            background-attachment: fixed;
+        }
+
+        /* Container & Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        /* Header / Hero */
+        .hero {
+            text-align: center;
+            padding: 3.5rem 1rem 4rem;
+            position: relative;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            background: rgba(249, 115, 22, 0.12);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            color: #fb923c;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 span.gradient-text {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 750px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Navigation Pills */
+        .quick-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .quick-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.6rem 1.25rem;
+            border-radius: 12px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.25s ease;
+        }
+
+        .quick-nav a:hover {
+            color: var(--text-primary);
+            border-color: var(--accent-orange);
+            background: rgba(249, 115, 22, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Section Styling */
+        section {
+            margin-bottom: 5rem;
+            scroll-margin-top: 2rem;
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+        }
+
+        .section-tag {
+            color: var(--accent-orange);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.4rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Cards Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.75rem;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-highlight);
+            box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
+            background: var(--bg-card-hover);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.2);
+            color: var(--accent-orange);
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Three Pillars Visual */
+        .pillars-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .pillar-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .pillar-card.highlight {
+            border-color: rgba(249, 115, 22, 0.5);
+            box-shadow: 0 0 25px -5px rgba(249, 115, 22, 0.15);
+        }
+
+        .pillar-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .pillar-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .pillar-role {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .role-html { background: rgba(249, 115, 22, 0.15); color: #fb923c; }
+        .role-css { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
+        .role-js { background: rgba(234, 179, 8, 0.15); color: #facc15; }
+
+        /* Code Snippet Box */
+        .code-box {
+            background: #0d1117;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            overflow: hidden;
+            margin-top: 1.5rem;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1.25rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .code-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #10b981; }
+
+        pre {
+            padding: 1.25rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #e2e8f0;
+        }
+
+        .code-tag { color: #f43f5e; }
+        .code-attr { color: #38bdf8; }
+        .code-val { color: #a3e635; }
+        .code-comment { color: #64748b; font-style: italic; }
+
+        /* Interactive Element Breakdown */
+        .element-anatomy {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 2.5rem 1.5rem;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            margin-top: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+        }
+
+        .anatomy-part {
+            position: relative;
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .anatomy-part:hover {
+            transform: translateY(-2px);
+        }
+
+        .anatomy-part::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: -32px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            background: #0f172a;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #f8fafc;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            z-index: 10;
+        }
+
+        .anatomy-part:hover::after {
+            opacity: 1;
+        }
+
+        .part-tag { background: rgba(244, 63, 94, 0.15); border-color: rgba(244, 63, 94, 0.3); color: #f43f5e; }
+        .part-attr { background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.3); color: #38bdf8; }
+        .part-content { background: rgba(250, 204, 21, 0.15); border-color: rgba(250, 204, 21, 0.3); color: #facc15; }
+
+        /* Advantage Badges */
+        .advantage-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.75rem;
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+            transition: all 0.25s ease;
+        }
+
+        .advantage-card:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            transform: translateX(4px);
+            background: var(--bg-card-hover);
+        }
+
+        .advantage-num {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(16, 185, 129, 0.12);
+            color: #34d399;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.95rem;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+
+        /* Semantic Layout Blueprint */
+        .blueprint {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        .blueprint-header, .blueprint-nav, .blueprint-footer {
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px dashed rgba(56, 189, 248, 0.3);
+            color: #38bdf8;
+            padding: 0.75rem;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .blueprint-body {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .blueprint-main {
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px dashed rgba(249, 115, 22, 0.3);
+            color: #fb923c;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .blueprint-sub {
+            background: rgba(249, 115, 22, 0.15);
+            border: 1px solid rgba(249, 115, 22, 0.2);
+            padding: 0.5rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+        }
+
+        .blueprint-aside {
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px dashed rgba(168, 85, 247, 0.3);
+            color: #c084fc;
+            padding: 1rem;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent-orange);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .blueprint-body {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Hero Header -->
+        <header class="hero">
+            <div class="badge">🚀 Frontend Web Mastery Series</div>
+            <h1>Day 1: <span class="gradient-text">HTML Fundamentals</span></h1>
+            <p>Understand the core theory, architecture, essential building blocks, and pivotal advantages of HyperText Markup Language.</p>
+
+            <nav class="quick-nav">
+                <a href="#what-is-html">What is HTML?</a>
+                <a href="#three-pillars">The 3 Pillars</a>
+                <a href="#structure">Document Structure</a>
+                <a href="#anatomy">Element Anatomy</a>
+                <a href="#advantages">10 Key Advantages</a>
+                <a href="#semantics">Semantic HTML</a>
+            </nav>
+        </header>
+
+        <!-- 1. What is HTML -->
+        <section id="what-is-html">
+            <div class="section-header">
+                <div class="section-tag">Foundation</div>
+                <h2 class="section-title">💡 1. What is HTML?</h2>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-icon">&lt;/&gt;</div>
+                    <h3>HyperText Markup Language</h3>
+                    <p>
+                        HTML is the global standard markup language used to structure web pages and organize text, hyperlinks, images, and audio/video files so web browsers can render them.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🧠</div>
+                    <h3>Markup vs. Programming Language</h3>
+                    <p>
+                        HTML is <strong>not</strong> a programming language. It possesses no conditional loops, functions, or variable logic. Instead, it uses <strong>tags</strong> to define how content is arranged and semantically classified.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. The Three Pillars -->
+        <section id="three-pillars">
+            <div class="section-header">
+                <div class="section-tag">Architecture</div>
+                <h2 class="section-title">🏛️ 2. The 3 Pillars of Frontend</h2>
+            </div>
+
+            <div class="pillars-container">
+                <div class="pillar-card highlight">
+                    <div class="pillar-icon">🦴</div>
+                    <div class="pillar-title">HTML</div>
+                    <span class="pillar-role role-html">Skeleton & Bones</span>
+                    <p>Defines content, semantic structure, links, headings, paragraphs, and media elements.</p>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-icon">🎨</div>
+                    <div class="pillar-title">CSS</div>
+                    <span class="pillar-role role-css">Skin & Styling</span>
+                    <p>Manages colors, typography, responsive grids, fluid layouts, glassmorphism, and animations.</p>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-icon">⚡</div>
+                    <div class="pillar-title">JavaScript</div>
+                    <span class="pillar-role role-js">Muscles & Logic</span>
+                    <p>Handles user interactions, API fetching, real-time validations, algorithms, and dynamic state.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Document Structure -->
+        <section id="structure">
+            <div class="section-header">
+                <div class="section-tag">Boilerplate</div>
+                <h2 class="section-title">📄 3. Anatomy of an HTML Document</h2>
+            </div>
+
+            <div class="card">
+                <p>Every HTML5 document requires this fundamental skeleton to render properly across all modern web browsers:</p>
+                
+                <div class="code-box">
+                    <div class="code-header">
+                        <div class="code-dots">
+                            <span class="dot dot-red"></span>
+                            <span class="dot dot-yellow"></span>
+                            <span class="dot dot-green"></span>
+                        </div>
+                        <span>index.html</span>
+                    </div>
+                    <pre><code><span class="code-tag">&lt;!DOCTYPE html&gt;</span> <span class="code-comment">&lt;!-- Declares this document as modern HTML5 --&gt;</span>
+<span class="code-tag">&lt;html</span> <span class="code-attr">lang</span>=<span class="code-val">"en"</span><span class="code-tag">&gt;</span> <span class="code-comment">&lt;!-- Root element of the web document --&gt;</span>
+<span class="code-tag">&lt;head&gt;</span>
+    <span class="code-tag">&lt;meta</span> <span class="code-attr">charset</span>=<span class="code-val">"UTF-8"</span><span class="code-tag">&gt;</span> <span class="code-comment">&lt;!-- Supports universal UTF-8 characters --&gt;</span>
+    <span class="code-tag">&lt;meta</span> <span class="code-attr">name</span>=<span class="code-val">"viewport"</span> <span class="code-attr">content</span>=<span class="code-val">"width=device-width, initial-scale=1.0"</span><span class="code-tag">&gt;</span> <span class="code-comment">&lt;!-- Mobile responsive --&gt;</span>
+    <span class="code-tag">&lt;title&gt;</span>Day 1 - HTML Fundamentals<span class="code-tag">&lt;/title&gt;</span> <span class="code-comment">&lt;!-- Appears on browser tab --&gt;</span>
+<span class="code-tag">&lt;/head&gt;</span>
+<span class="code-tag">&lt;body&gt;</span>
+    <span class="code-tag">&lt;h1&gt;</span>Hello World!<span class="code-tag">&lt;/h1&gt;</span> <span class="code-comment">&lt;!-- Primary visible heading --&gt;</span>
+    <span class="code-tag">&lt;p&gt;</span>This is the body content displayed to visitors.<span class="code-tag">&lt;/p&gt;</span>
+<span class="code-tag">&lt;/body&gt;</span>
+<span class="code-tag">&lt;/html&gt;</span></code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Anatomy of an Element -->
+        <section id="anatomy">
+            <div class="section-header">
+                <div class="section-tag">Syntax</div>
+                <h2 class="section-title">🧩 4. Anatomy of an HTML Element</h2>
+            </div>
+
+            <div class="card">
+                <p>Hover over the colored parts below to see their functional definition:</p>
+                <div class="element-anatomy">
+                    <span class="anatomy-part part-tag" data-tooltip="Opening Tag: Initiates element">&lt;p</span>
+                    <span class="anatomy-part part-attr" data-tooltip="Attribute Name: Configuration key">class</span>=<span class="anatomy-part part-attr" data-tooltip="Attribute Value: CSS styling hook">"lead-text"</span><span class="anatomy-part part-tag" data-tooltip="Closing opening bracket">&gt;</span>
+                    <span class="anatomy-part part-content" data-tooltip="Content: Visible text or nested tags">Welcome to Day 1!</span>
+                    <span class="anatomy-part part-tag" data-tooltip="Closing Tag: Concludes element with '/'">&lt;/p&gt;</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Advantages of HTML -->
+        <section id="advantages">
+            <div class="section-header">
+                <div class="section-tag">Benefits</div>
+                <h2 class="section-title">🌟 5. Ten Key Advantages of HTML</h2>
+            </div>
+
+            <div class="grid-2">
+                <div class="advantage-card">
+                    <div class="advantage-num">01</div>
+                    <div>
+                        <h3>Easy to Learn & Beginner Friendly</h3>
+                        <p>Intuitive English-like syntax that requires no compilation tools or previous coding experience.</p>
+                    </div>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="advantage-num">02</div>
+                    <div>
+                        <h3>Cross-Platform & Universal</h3>
+                        <p>Runs natively on Chrome, Safari, Edge, Firefox, and across Windows, macOS, Linux, Android, and iOS.</p>
+                    </div>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="advantage-num">03</div>
+                    <div>
+                        <h3>Free & Open Standard</h3>
+                        <p>Zero software licensing fees or proprietary royalties. Governed openly by the W3C and WHATWG.</p>
+                    </div>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="advantage-num">04</div>
+                    <div>
+                        <h3>Ultra-Fast & Lightweight</h3>
+                        <p>Consists of plain text documents parsed instantly by native browser rendering engines without build steps.</p>
+                    </div>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="advantage-num">05</div>
+                    <div>
+                        <h3>SEO (Search Engine) Optimized</h3>
+                        <p>Search crawlers (Google, Bing) easily index semantic tags, heading hierarchies, and metadata.</p>
+                    </div>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="advantage-num">06</div>
+                    <div>
+                        <h3>Seamless Technology Integration</h3>
+                        <p>Flawlessly binds with CSS for styling, JavaScript for logic, and any backend language or REST API.</p>
+                    </div>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="advantage-num">07</div>
+                    <div>
+                        <h3>Built-in Accessibility (a11y)</h3>
+                        <p>Standard HTML elements convey meaningful structural roles to screen readers used by visually impaired users.</p>
+                    </div>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="advantage-num">08</div>
+                    <div>
+                        <h3>Native Multimedia Support</h3>
+                        <p>Modern HTML5 supports &lt;video&gt;, &lt;audio&gt;, &lt;canvas&gt;, and &lt;svg&gt; without clunky third-party plugins.</p>
+                    </div>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="advantage-num">09</div>
+                    <div>
+                        <h3>Mobile & Responsive Ready</h3>
+                        <p>Responsive viewport tags and fluid media support allow seamless display on smartphones and tablets.</p>
+                    </div>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="advantage-num">10</div>
+                    <div>
+                        <h3>Massive Community & Longevity</h3>
+                        <p>Supported by 30+ years of documentation, tutorials, libraries, and backward-compatible standards.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Semantic HTML Blueprint -->
+        <section id="semantics">
+            <div class="section-header">
+                <div class="section-tag">Best Practice</div>
+                <h2 class="section-title">📐 6. Semantic HTML Architecture</h2>
+            </div>
+
+            <div class="card">
+                <p style="margin-bottom: 1.5rem;">Semantic tags define the meaning of each section to developers, search engines, and screen readers:</p>
+                <div class="blueprint">
+                    <div class="blueprint-header">&lt;header&gt; (Logo, Branding, Page Headline)</div>
+                    <div class="blueprint-nav">&lt;nav&gt; (Navigation Links, Menus)</div>
+                    <div class="blueprint-body">
+                        <div class="blueprint-main">
+                            &lt;main&gt; (Primary Page Content)
+                            <div class="blueprint-sub">&lt;section&gt; or &lt;article&gt; (Specific Content Block)</div>
+                        </div>
+                        <div class="blueprint-aside">&lt;aside&gt;<br>(Sidebar / Related Links)</div>
+                    </div>
+                    <div class="blueprint-footer">&lt;footer&gt; (Copyright, Legal, Social Links)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>Created for <strong>Day 1 of Frontend</strong> • Repository: <a href="https://github.com/harish-0987/DAY-1-OF-FRONTEND" target="_blank" rel="noopener noreferrer">harish-0987/DAY-1-OF-FRONTEND</a></p>
+        </footer>
+    </div>
+
+</body>
+</html>
